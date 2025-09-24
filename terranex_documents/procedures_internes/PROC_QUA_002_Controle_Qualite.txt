@@ -1,0 +1,19 @@
+PROCÉDURE QUALITÉ TERRANEX - QUA-002
+Code: PROC-QUA-0002
+Domaine: Contrôle qualité biométhane
+Fréquence: Continue/Quotidienne
+Personnel: Techniciens qualité
+Validation: Responsable qualité
+
+ANALYSES REQUISES:
+1. PCS (Pouvoir Calorifique Supérieur)
+2. Index Wobbe (combustibilité)
+3. Teneur H2S (corrosion)
+4. Teneur CO2 (dilution)
+5. Humidité et impuretés
+
+ACTIONS CORRECTIVES:
+- H2S > 6 ppm: Arrêt injection
+- CO2 > 2.5%: Réglage process
+- PCS < 10.7: Alerte laboratoire
+- Non-conformité: Rapport CRE

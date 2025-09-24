@@ -1,0 +1,88 @@
+CONTRAT DE ACCORD QUALITE
+Terranex - Gestionnaire du Réseau de Transport de Gaz
+
+CONTRAT N° : CTR-2022-023
+DATE DE SIGNATURE : 24/09/2022
+DURÉE : 15 ans renouvelable
+
+PARTIES :
+- Terranex (ex-GRT Gaz), gestionnaire du réseau de transport
+- Agri-Energie Picardie, producteur de biométhane
+
+SITE CONCERNÉ :
+- Nom : Méthacentre Picardie
+- Localisation : Hauts-de-France
+- Capacité nominale : 32.8 MWh/jour
+- Point d'injection : Poste Terranex associé
+
+ARTICLE 1 - OBJET DU CONTRAT
+Le présent contrat définit les conditions de raccordement et d'injection 
+de biométhane produit par Agri-Energie Picardie sur le réseau de transport 
+géré par Terranex.
+
+ARTICLE 2 - OBLIGATIONS DE QUALITÉ
+Le producteur s'engage à respecter les spécifications suivantes :
+- PCS minimum : 10.5 kWh/m³
+- Indice de Wobbe : entre 12.8 et 13.5
+- Teneur en H2S : maximum 5 ppm
+- Teneur en CO2 : maximum 3%
+- Conformité aux normes NF EN 16723-1
+
+ARTICLE 3 - PÉNALITÉS QUALITÉ
+En cas de non-conformité qualité :
+- H2S > 5 ppm : Arrêt immédiat + pénalité 500€/heure d'arrêt
+- CO2 > 3% : Dérogation possible, pénalité 50€/MWh injecté
+- PCS < 10.5 kWh/m³ : Pénalité 20€/MWh + obligation de correction
+- Non-conformité répétée (>3 fois/mois) : Suspension temporaire
+
+ARTICLE 4 - CAPACITÉ ET DÉBIT
+- Capacité contractuelle : 32.8 MWh/jour
+- Débit maximal autorisé : 8501 m³/h
+- Modulation autorisée : ±20% de la capacité nominale
+- Préavis pour dépassement : 48h minimum
+
+ARTICLE 5 - OBLIGATIONS DE MAINTENANCE
+Le producteur doit :
+- Maintenance préventive trimestrielle
+- Arrêt programmé : préavis 15 jours
+- Disponibilité minimale : 95% annuelle
+- Analyses qualité : minimum 1 par semaine
+
+ARTICLE 6 - PROCÉDURES D'URGENCE
+En cas d'incident :
+- Notification Terranex : immédiate (24h/24)
+- Arrêt d'urgence : sous 30 minutes
+- Rapport d'incident : sous 48h
+- Investigation conjointe si nécessaire
+
+ARTICLE 7 - FACTURATION ET PAIEMENT
+- Tarif d'injection : selon délibération CRE en vigueur
+- Facturation mensuelle
+- Paiement à 30 jours
+- Pénalités de retard : 3% mensuel
+
+ARTICLE 8 - RÉSILIATION
+Causes de résiliation :
+- Non-respect qualité répété (>5 incidents/an)
+- Défaut de paiement > 60 jours
+- Non-conformité sécurité grave
+- Modification réglementaire incompatible
+
+ARTICLE 9 - LITIGES
+- Médiation préalable obligatoire
+- Juridiction compétente : Tribunal de Paris
+- Droit applicable : Droit français
+- Référence CRE : Délibération 2023-XX
+
+SIGNATURES :
+Terranex : ________________
+Agri-Energie Picardie : ________________
+
+Date : 23/09/2025
+Lieu : Paris
+
+ANNEXES :
+- Spécifications techniques détaillées
+- Procédures opérationnelles
+- Grille tarifaire
+- Plan du point d'injection

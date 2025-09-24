@@ -1,0 +1,67 @@
+PROCÉDURE INTERNE Terranex
+Gestion des Incidents de Sécurité
+
+RÉFÉRENCE : PROC-SECU-001
+VERSION : 4.0
+DATE : 20/08/2025
+RESPONSABLE : Direction Sécurité
+
+1. CLASSIFICATION DES INCIDENTS
+1.1 NIVEAU 1 - CRITIQUE
+- Fuite de gaz avec risque d'explosion
+- Blessure grave ou décès
+- Pollution environnementale majeure
+- Cyber-attaque sur systèmes critiques
+
+1.2 NIVEAU 2 - MAJEUR  
+- Fuite mineure sans risque immédiat
+- Dysfonctionnement équipement sécurité
+- Non-conformité réglementaire grave
+- Tentative d'intrusion physique
+
+1.3 NIVEAU 3 - MINEUR
+- Anomalie détectée par surveillance
+- Non-conformité procédure
+- Incident sans conséquence
+- Défaillance équipement non critique
+
+2. ACTIONS IMMÉDIATES NIVEAU 1
+2.1 SÉCURISATION (0-15 minutes)
+- Arrêt d'urgence installations
+- Évacuation zone dangereuse
+- Alerte services secours (18/112)
+- Mise en sécurité personnel
+
+2.2 NOTIFICATION (15-30 minutes)
+- Direction générale Terranex
+- Préfecture et DREAL
+- CRE si impact réseau
+- Assurances et service juridique
+
+2.3 GESTION DE CRISE (1-24 heures)
+- Cellule de crise activée
+- Communication médias
+- Coordination autorités
+- Expertise technique externe
+
+3. OBLIGATIONS RÉGLEMENTAIRES
+3.1 DÉCLARATIONS OBLIGATOIRES
+- ARIA (Analyse Recherche Information Accidents) : sous 72h
+- CRE : notification immédiate si impact réseau
+- DREAL : selon gravité environnementale
+- Inspection du travail : si accident personnel
+
+3.2 ENQUÊTE ET RAPPORT
+- Investigation interne : sous 15 jours
+- Rapport final : sous 30 jours
+- Plan d'actions correctives
+- Suivi mise en œuvre
+
+4. RESPONSABILITÉS
+- Chef d'exploitation : Première intervention
+- Direction sécurité : Coordination générale
+- Service juridique : Aspects réglementaires
+- Communication : Relations externes
+
+Cette procédure est mise à jour selon retour d'expérience.
+Formation annuelle obligatoire pour tout le personnel.

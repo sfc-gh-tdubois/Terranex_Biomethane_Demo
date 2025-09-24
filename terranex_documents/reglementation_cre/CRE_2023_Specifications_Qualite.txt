@@ -1,0 +1,11 @@
+RÉGLEMENTATION CRE 2023 - Spécifications qualité gaz naturel et biométhane
+Référence: CRE-2023-001
+Application: Tous sites de production Terranex
+Contrôles: Trimestriels par organisme agréé
+
+CRITÈRES QUALITÉ:
+- PCS: 10.7 à 11.7 kWh/m³
+- Index Wobbe: 13.4 à 15.7 kWh/m³
+- H2S: < 6.0 ppm
+- CO2: < 2.5%
+- Conformité: > 95% des analyses

@@ -1,0 +1,57 @@
+PROCÉDURE INTERNE Terranex
+Gestion des Arrêts de Postes d'Injection
+
+RÉFÉRENCE : PROC-OPER-002
+VERSION : 2.1
+DATE : 10/09/2025
+RESPONSABLE : Direction Exploitation
+
+1. CLASSIFICATION DES ARRÊTS
+1.1 Arrêt programmé (maintenance préventive)
+1.2 Arrêt d'urgence (sécurité, qualité)
+1.3 Arrêt technique (panne équipement)
+1.4 Arrêt réglementaire (ordre CRE)
+
+2. ARRÊT POSTE > 24 HEURES
+2.1 NOTIFICATION IMMÉDIATE
+- Producteurs impactés : notification sous 2h
+- CRE : déclaration sous 24h si capacité > 20 MWh/j
+- Préfecture : information si risque sécurité
+- Centre national : alerte réseau
+
+2.2 PLAN DE CONTINUITÉ
+- Évaluation capacités postes voisins
+- Réorientation flux si possible
+- Coordination avec GRT Gaz si interconnexion
+- Communication publique si impact significatif
+
+2.3 ACTIONS TECHNIQUES
+- Diagnostic cause racine (sous 6h)
+- Plan de réparation avec délais (sous 12h)
+- Mobilisation équipes spécialisées
+- Pièces de rechange en urgence
+
+3. PROCÉDURE DE REMISE EN SERVICE
+3.1 Tests de fonctionnement complets
+3.2 Validation sécurité (check-list SECU-001)
+3.3 Test d'injection à débit réduit
+3.4 Montée en charge progressive (paliers 25%, 50%, 75%, 100%)
+3.5 Validation finale et déclaration CRE
+
+4. INDEMNISATIONS
+- Producteur : selon contrat, généralement 80% CA perdu
+- Force majeure : pas d'indemnisation
+- Faute Terranex : indemnisation intégrale + dommages
+- Arrêt réglementaire : compensation selon décision CRE
+
+5. DOCUMENTATION OBLIGATOIRE
+- Rapport d'arrêt (FORM-ARR-001)
+- Analyse des causes (FORM-ANA-001)  
+- Plan d'actions correctives
+- Validation remise en service
+- Bilan financier des impacts
+
+CONTACTS D'URGENCE 24h/24 :
+- Astreinte technique : 01.XX.XX.XX.XX
+- Direction exploitation : 01.XX.XX.XX.XX
+- Service juridique : 01.XX.XX.XX.XX

@@ -1,0 +1,24 @@
+MANUEL TECHNIQUE TERRANEX - Methanisation_Liquide
+Code: TECH-Methanisation_Liquide-001
+Domaine: Production biométhane
+Technologie: Methanisation_Liquide
+Version: 2024.1
+
+SPÉCIFICATIONS TECHNIQUES:
+- Température optimale: 38-42°C
+- Pression process: 1.2-1.8 bars
+- pH optimal: 7.0-8.5
+- Temps séjour: 20-30 jours
+- Rendement: 85-95% CH4
+
+MAINTENANCE SPÉCIFIQUE:
+- Contrôle agitateurs: Hebdomadaire
+- Vérification chauffage: Quotidienne
+- Analyse biologique: Bi-mensuelle
+- Nettoyage échangeurs: Mensuel
+
+SÉCURITÉ:
+- Détection H2S permanent
+- Système anti-explosion
+- Procédures d'urgence
+- EPI obligatoires

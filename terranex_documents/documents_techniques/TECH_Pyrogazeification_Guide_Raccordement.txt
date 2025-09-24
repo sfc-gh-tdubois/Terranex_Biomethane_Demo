@@ -1,0 +1,26 @@
+GUIDE RACCORDEMENT RÉSEAU - Pyrogazeification
+Code: TECH-Pyrogazeification-002
+Domaine: Injection réseau gaz
+Technologie: Pyrogazeification
+Version: 2024.1
+
+PROCÉDURE RACCORDEMENT:
+1. Demande autorisation GRTgaz/GRDF
+2. Étude technique faisabilité
+3. Dimensionnement poste injection
+4. Tests pression et étanchéité
+5. Mise en service progressive
+
+ÉQUIPEMENTS REQUIS:
+- Poste détente/compression
+- Analyseurs qualité continus
+- Système comptage certifié
+- Dispositifs sécurité
+- Télétransmission données
+
+CONTRÔLES RÉCEPTION:
+- Test pression 1.5x Pmax
+- Vérification analyseurs
+- Étalonnage compteurs
+- Formation équipes
+- Procès-verbal réception

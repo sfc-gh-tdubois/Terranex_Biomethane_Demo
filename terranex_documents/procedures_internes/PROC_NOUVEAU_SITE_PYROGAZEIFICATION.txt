@@ -1,0 +1,66 @@
+PROCÉDURE INTERNE Terranex
+Raccordement Nouveau Site de Pyrogazéification
+
+RÉFÉRENCE : PROC-RAC-003
+VERSION : 1.0
+DATE : 01/09/2025
+RESPONSABLE : Direction Développement
+
+1. SPÉCIFICITÉS PYROGAZÉIFICATION
+La pyrogazéification produit un gaz de composition différente de la 
+méthanisation classique, nécessitant des contrôles renforcés.
+
+2. OBLIGATIONS RÉGLEMENTAIRES RENFORCÉES
+2.1 DOSSIER TECHNIQUE COMPLET
+- Étude d'impact environnemental
+- Analyse des risques HAZOP
+- Certification équipements (ATEX, PED)
+- Validation procédé par organisme agréé
+
+2.2 ANALYSES QUALITÉ SPÉCIFIQUES
+- Chromatographie complète (C1-C6+)
+- Recherche composés organiques volatils (COV)
+- Métaux lourds (plomb, mercure)
+- Composés soufrés étendus
+- Fréquence : quotidienne les 6 premiers mois
+
+2.3 REPORTING RÉGLEMENTAIRE MENSUEL
+- Bilan de production détaillé
+- Analyses qualité complètes
+- Incidents et non-conformités
+- Consommation énergétique du procédé
+- Émissions atmosphériques
+
+3. ÉTAPES DE VALIDATION
+3.1 PHASE 1 - INSTRUCTION DOSSIER (6 mois)
+- Réception dossier technique complet
+- Instruction par équipes spécialisées
+- Consultation organismes externes
+- Avis préfecture et DREAL
+
+3.2 PHASE 2 - TESTS ET VALIDATION (3 mois)
+- Tests d'injection à débit réduit
+- Validation qualité sur 30 jours
+- Tests de sécurité complets
+- Formation équipes exploitation
+
+3.3 PHASE 3 - MISE EN SERVICE COMMERCIALE
+- Autorisation finale Terranex
+- Déclaration CRE
+- Contrat commercial signé
+- Intégration systèmes de supervision
+
+4. SURVEILLANCE RENFORCÉE (12 premiers mois)
+- Analyses qualité quotidiennes
+- Inspections mensuelles
+- Audits trimestriels
+- Reporting mensuel obligatoire à la CRE
+
+5. CRITÈRES DE VALIDATION FINALE
+- 30 jours consécutifs sans non-conformité
+- Disponibilité > 95%
+- Validation organisme de contrôle
+- Accord écrit direction technique Terranex
+
+Cette procédure s'applique à tous les nouveaux sites de pyrogazéification.
+Mise à jour annuelle obligatoire selon évolution réglementaire.

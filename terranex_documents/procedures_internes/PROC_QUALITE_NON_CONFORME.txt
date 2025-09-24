@@ -1,0 +1,52 @@
+PROCÉDURE INTERNE Terranex
+Gestion des Non-Conformités Qualité du Biométhane
+
+RÉFÉRENCE : PROC-QUAL-001
+VERSION : 3.2
+DATE : 15/09/2025
+RESPONSABLE : Direction Technique Terranex
+
+1. OBJET ET DOMAINE D'APPLICATION
+Cette procédure définit les actions à entreprendre en cas de détection 
+d'une non-conformité qualité du biométhane injecté sur le réseau.
+
+2. SEUILS DE NON-CONFORMITÉ
+- H2S > 5 ppm : Non-conformité critique
+- CO2 > 3% : Non-conformité majeure  
+- PCS < 10.5 kWh/m³ : Non-conformité mineure
+- Indice Wobbe hors plage [12.8-13.5] : Non-conformité technique
+
+3. ACTIONS IMMÉDIATES (H2S > 5 ppm)
+3.1 Arrêt automatique de l'injection (< 30 min)
+3.2 Notification du producteur (immédiate)
+3.3 Alerte équipe technique Terranex (SMS + email)
+3.4 Isolation du tronçon si nécessaire
+3.5 Analyse de confirmation (double contrôle)
+
+4. PROCÉDURE DE REMISE EN SERVICE
+4.1 Correction par le producteur
+4.2 Nouvelle analyse qualité conforme
+4.3 Test d'injection supervisé (débit réduit)
+4.4 Validation équipe technique Terranex
+4.5 Remise en service normale
+
+5. PÉNALITÉS CONTRACTUELLES
+- H2S critique : 500€/heure d'arrêt
+- CO2 majeur : 50€/MWh injecté non-conforme
+- PCS mineur : 20€/MWh + obligation correction
+- Récidive (>3/mois) : Suspension 30 jours
+
+6. REPORTING ET TRAÇABILITÉ
+6.1 Fiche d'incident (formulaire FORM-INC-001)
+6.2 Rapport mensuel de conformité
+6.3 Transmission CRE si incident grave
+6.4 Archivage 10 ans minimum
+
+7. RESPONSABILITÉS
+- Technicien qualité : Détection et première analyse
+- Chef d'exploitation : Décision d'arrêt
+- Direction technique : Validation remise en service
+- Service juridique : Application pénalités
+
+MISE À JOUR : Cette procédure est révisée annuellement
+PROCHAINE RÉVISION : Septembre 2026

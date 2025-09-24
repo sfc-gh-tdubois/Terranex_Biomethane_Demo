@@ -1,0 +1,19 @@
+PROCÉDURE MAINTENANCE TERRANEX - MAI-005
+Code: PROC-MAI-0005
+Domaine: Maintenance préventive équipements
+Fréquence: Hebdomadaire/Mensuelle
+Personnel: Techniciens maintenance
+Validation: Responsable technique
+
+INTERVENTIONS:
+1. Contrôle compresseurs injection
+2. Vérification analyseurs qualité
+3. Étalonnage instruments mesure
+4. Test systèmes sécurité
+5. Nettoyage filtres et échangeurs
+
+DOCUMENTATION:
+- Fiche intervention signée
+- Photos avant/après
+- Relevés métriques
+- Planning maintenance préventive

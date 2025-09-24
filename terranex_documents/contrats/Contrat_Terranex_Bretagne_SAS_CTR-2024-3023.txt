@@ -1,0 +1,32 @@
+CONTRAT PRODUCTION BIOMÉTHANE TERRANEX
+Numéro: CTR-2024-3023
+Producteur: Terranex_Bretagne_SAS
+Site: Site Terranex Bretagne 3
+Région: Bretagne
+
+CARACTÉRISTIQUES SITE:
+- Capacité: 123 MWh/jour
+- Technologie: Méthanisation liquide
+- Intrants: Déchets organiques municipaux
+- Mise en service: 2024-01-01
+- Durée contrat: 15 ans
+
+CONDITIONS COMMERCIALES:
+- Tarif: 109 €/MWh
+- Indexation: Inflation + 1%
+- Garantie production: 85% capacité
+- Pénalités retard: 0.1%/jour
+- Bonus qualité: 2€/MWh si H2S < 3ppm
+
+OBLIGATIONS TECHNIQUES:
+- Respect spécifications CRE
+- Analyses qualité continues
+- Reporting mensuel production
+- Maintenance préventive
+- Télétransmission données temps réel
+
+RESPONSABILITÉS:
+- Terranex: Exploitation, maintenance
+- Producteur: Approvisionnement intrants
+- GRTgaz: Transport et distribution
+- CRE: Contrôle réglementaire

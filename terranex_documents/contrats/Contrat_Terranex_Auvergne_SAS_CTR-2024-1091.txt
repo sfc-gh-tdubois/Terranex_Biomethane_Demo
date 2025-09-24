@@ -1,0 +1,32 @@
+CONTRAT PRODUCTION BIOMÉTHANE TERRANEX
+Numéro: CTR-2024-1091
+Producteur: Terranex_Auvergne_SAS
+Site: Site Terranex Auvergne 1
+Région: Auvergne
+
+CARACTÉRISTIQUES SITE:
+- Capacité: 91 MWh/jour
+- Technologie: Méthanisation liquide
+- Intrants: Déchets organiques municipaux
+- Mise en service: 2024-01-01
+- Durée contrat: 15 ans
+
+CONDITIONS COMMERCIALES:
+- Tarif: 97 €/MWh
+- Indexation: Inflation + 1%
+- Garantie production: 85% capacité
+- Pénalités retard: 0.1%/jour
+- Bonus qualité: 2€/MWh si H2S < 3ppm
+
+OBLIGATIONS TECHNIQUES:
+- Respect spécifications CRE
+- Analyses qualité continues
+- Reporting mensuel production
+- Maintenance préventive
+- Télétransmission données temps réel
+
+RESPONSABILITÉS:
+- Terranex: Exploitation, maintenance
+- Producteur: Approvisionnement intrants
+- GRTgaz: Transport et distribution
+- CRE: Contrôle réglementaire

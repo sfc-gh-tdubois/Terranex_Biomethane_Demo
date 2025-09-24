@@ -1,0 +1,53 @@
+COMMISSION DE RÉGULATION DE L'ÉNERGIE
+Délibération du 15 janvier 2024
+
+DÉLIBÉRATION N° 2024-001
+Portant sur les tarifs d'injection de biométhane dans les réseaux de transport
+
+La Commission de régulation de l'énergie (CRE),
+
+VU le code de l'énergie, notamment ses articles L. 134-1 et suivants ;
+VU la directive 2009/73/CE du 13 juillet 2009 ;
+VU la délibération de la CRE du 12 décembre 2023 ;
+
+CONSIDÉRANT que le développement du biométhane contribue aux objectifs 
+de transition énergétique ;
+
+CONSIDÉRANT la nécessité d'adapter les tarifs aux évolutions technologiques ;
+
+DÉCIDE :
+
+ARTICLE 1 - TARIFS D'INJECTION 2024
+Les tarifs d'injection de biométhane dans le réseau de transport sont fixés comme suit :
+- Tarif de base : 2,50 €/MWh injecté
+- Majoration haute qualité (PCS > 11 kWh/m³) : +0,30 €/MWh
+- Majoration technologie innovante (pyrogazéification) : +0,50 €/MWh
+- Minoration non-conformité qualité : -1,00 €/MWh
+
+ARTICLE 2 - PÉNALITÉS QUALITÉ
+En application de l'article L.452-2 du code de l'énergie :
+- H2S > 5 ppm : Pénalité 500 €/heure d'arrêt réseau
+- CO2 > 3% : Pénalité 50 €/MWh non-conforme
+- Non-conformité répétée : Suspension injection 30 jours
+
+ARTICLE 3 - OBLIGATIONS DE REPORTING
+Les gestionnaires de réseau doivent transmettre mensuellement :
+- Volumes injectés par site et par mois
+- Analyses qualité complètes
+- Incidents et non-conformités
+- Évolution des capacités installées
+
+ARTICLE 4 - CONTRÔLES ET SANCTIONS
+La CRE peut diligenter des contrôles inopinés.
+Sanctions possibles :
+- Amende administrative : jusqu'à 3% du CA
+- Suspension d'autorisation : 6 mois maximum
+- Mise en demeure publique
+
+ARTICLE 5 - ENTRÉE EN VIGUEUR
+La présente délibération entre en vigueur le 1er février 2024.
+Elle abroge la délibération 2023-XX du 15 décembre 2023.
+
+Fait à Paris, le 15 janvier 2024
+Le Président de la CRE
+Jean CASTEX
