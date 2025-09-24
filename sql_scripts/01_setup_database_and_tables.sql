@@ -23,9 +23,11 @@ CREATE WAREHOUSE TERRANEX_WH
     AUTO_RESUME = TRUE;
 GRANT USAGE ON WAREHOUSE TERRANEX_WH TO ROLE SF_Intelligence_Demo;
 
--- Configuration utilisateur
+-- Configuration utilisateur - Rôle et warehouse par défaut
+SELECT '👤 Configuration utilisateur avec defaults...' AS etape;
 ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = SF_Intelligence_Demo;
 ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = TERRANEX_WH;
+SELECT '✅ Rôle SF_Intelligence_Demo et warehouse TERRANEX_WH définis par défaut' AS config_user;
 
 -- Basculer vers le rôle SF_Intelligence_Demo
 USE ROLE SF_Intelligence_Demo;

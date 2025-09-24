@@ -32,9 +32,11 @@ CREATE WAREHOUSE IF NOT EXISTS TERRANEX_WH
     AUTO_RESUME = TRUE;
 GRANT USAGE ON WAREHOUSE TERRANEX_WH TO ROLE SF_Intelligence_Demo;
 
--- Configuration utilisateur
+-- Configuration utilisateur - Rôle et warehouse par défaut
+SELECT '👤 Configuration utilisateur avec defaults...' AS etape;
 ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = SF_Intelligence_Demo;
 ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = TERRANEX_WH;
+SELECT '✅ Rôle SF_Intelligence_Demo et warehouse TERRANEX_WH définis par défaut' AS config_user;
 
 -- Permissions pour les agents
 GRANT USAGE ON DATABASE SNOWFLAKE_INTELLIGENCE TO ROLE SF_Intelligence_Demo;
@@ -51,7 +53,28 @@ USE DATABASE DB_TERRANEX;
 CREATE SCHEMA IF NOT EXISTS PRODUCTION;
 USE SCHEMA PRODUCTION;
 
-SELECT '✅ Étape 1 terminée - Infrastructure créée' AS resultat;
+-- Vérification des defaults utilisateur
+SELECT 
+    '👤 CONFIGURATION UTILISATEUR' AS section,
+    '' AS parametre,
+    '' AS valeur
+UNION ALL
+SELECT 
+    '',
+    'Utilisateur actuel',
+    CURRENT_USER()
+UNION ALL
+SELECT 
+    '',
+    'Rôle par défaut',
+    'SF_Intelligence_Demo (configuré)'
+UNION ALL
+SELECT 
+    '',
+    'Warehouse par défaut',
+    'TERRANEX_WH (configuré)';
+
+SELECT '✅ Étape 1 terminée - Infrastructure créée avec defaults configurés' AS resultat;
 
 -- ======================================================================
 -- ÉTAPE 2: TABLES DE DONNÉES

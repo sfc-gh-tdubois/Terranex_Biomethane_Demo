@@ -53,8 +53,8 @@ DB_TERRANEX
 
 ### Prérequis
 - Compte Snowflake avec Snowflake Intelligence activé
-- Rôle `SF_Intelligence_Demo` avec permissions appropriées
-- Warehouse `TERRANEX_WH`
+- Permissions ACCOUNTADMIN (pour création rôle et warehouse)
+- Les scripts configurent automatiquement les defaults utilisateur
 
 ### 🚀 Installation rapide (5 minutes)
 
@@ -266,6 +266,13 @@ GRANT CREATE DATABASE ON ACCOUNT TO ROLE SF_Intelligence_Demo;
 GRANT USAGE ON WAREHOUSE TERRANEX_WH TO ROLE SF_Intelligence_Demo;
 GRANT USAGE ON DATABASE SNOWFLAKE_INTELLIGENCE TO ROLE SF_Intelligence_Demo;
 GRANT CREATE AGENT ON SCHEMA SNOWFLAKE_INTELLIGENCE.AGENTS TO ROLE SF_Intelligence_Demo;
+```
+
+### Configuration automatique
+```sql
+-- Les scripts configurent automatiquement:
+ALTER USER SET DEFAULT_ROLE = SF_Intelligence_Demo;
+ALTER USER SET DEFAULT_WAREHOUSE = TERRANEX_WH;
 ```
 
 ### Ressources consommées
