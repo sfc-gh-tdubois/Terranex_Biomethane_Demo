@@ -41,9 +41,10 @@ SELECT '🤖 Suppression des agents Terranex...' AS etape;
 -- MÉTHODE OPTIMISÉE (découverte lors des tests réels):
 SELECT '🗄️ Prise d''ownership et suppression DB_TERRANEX...' AS etape;
 
--- ÉTAPE CRITIQUE: Prendre ownership de la base avant suppression
+-- ÉTAPE CRITIQUE: Prendre ownership avec révocation des grants dépendants
 -- (Nécessaire car la base appartient au rôle SF_Intelligence_Demo)
-GRANT OWNERSHIP ON DATABASE DB_TERRANEX TO ROLE ACCOUNTADMIN;
+-- REVOKE CURRENT GRANTS évite les erreurs de grants dépendants
+GRANT OWNERSHIP ON DATABASE DB_TERRANEX TO ROLE ACCOUNTADMIN REVOKE CURRENT GRANTS;
 
 -- Suppression de la base complète (supprime automatiquement tous les objets)
 -- Plus efficace que supprimer table par table
