@@ -19,6 +19,7 @@ USE ROLE ACCOUNTADMIN;
 
 -- Création et configuration du rôle SF_Intelligence_Demo
 -- SÉCURISÉ: Pas de DROP automatique
+-- LEÇON: IF NOT EXISTS évite les erreurs si rôle existe déjà
 CREATE ROLE IF NOT EXISTS SF_Intelligence_Demo;
 SET current_user_name = CURRENT_USER();
 GRANT ROLE SF_Intelligence_Demo TO USER IDENTIFIER($current_user_name);
@@ -26,6 +27,7 @@ GRANT CREATE DATABASE ON ACCOUNT TO ROLE SF_Intelligence_Demo;
 
 -- Création du warehouse dédié
 -- SÉCURISÉ: Pas de remplacement automatique
+-- LEÇON: IF NOT EXISTS + AUTO_SUSPEND pour optimisation coûts
 CREATE WAREHOUSE IF NOT EXISTS TERRANEX_WH 
     WITH WAREHOUSE_SIZE = 'SMALL'
     AUTO_SUSPEND = 300
@@ -33,12 +35,14 @@ CREATE WAREHOUSE IF NOT EXISTS TERRANEX_WH
 GRANT USAGE ON WAREHOUSE TERRANEX_WH TO ROLE SF_Intelligence_Demo;
 
 -- Configuration utilisateur - Rôle et warehouse par défaut
+-- LEÇON: Configuration defaults essentielle pour UX optimale
 SELECT '👤 Configuration utilisateur avec defaults...' AS etape;
 ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = SF_Intelligence_Demo;
 ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = TERRANEX_WH;
 SELECT '✅ Rôle SF_Intelligence_Demo et warehouse TERRANEX_WH définis par défaut' AS config_user;
 
 -- Permissions pour les agents
+-- LEÇON: Permissions agents nécessaires dès le début pour éviter erreurs ultérieures
 GRANT USAGE ON DATABASE SNOWFLAKE_INTELLIGENCE TO ROLE SF_Intelligence_Demo;
 GRANT USAGE ON SCHEMA SNOWFLAKE_INTELLIGENCE.AGENTS TO ROLE SF_Intelligence_Demo;
 GRANT CREATE AGENT ON SCHEMA SNOWFLAKE_INTELLIGENCE.AGENTS TO ROLE SF_Intelligence_Demo;
@@ -706,9 +710,11 @@ SELECT '📋 ÉTAPE 9/10: Permissions finales...' AS etape;
 USE ROLE ACCOUNTADMIN;
 
 -- Permissions sur tous les objets
+-- LEÇON: Permissions complètes nécessaires pour fonctionnement agents
 GRANT USAGE ON DATABASE DB_TERRANEX TO ROLE SF_Intelligence_Demo;
 GRANT USAGE ON SCHEMA DB_TERRANEX.PRODUCTION TO ROLE SF_Intelligence_Demo;
 GRANT SELECT ON ALL TABLES IN SCHEMA DB_TERRANEX.PRODUCTION TO ROLE SF_Intelligence_Demo;
+-- LEÇON CRITIQUE: SELECT (pas USAGE) pour les vues
 GRANT SELECT ON ALL VIEWS IN SCHEMA DB_TERRANEX.PRODUCTION TO ROLE SF_Intelligence_Demo;
 GRANT USAGE ON ALL PROCEDURES IN SCHEMA DB_TERRANEX.PRODUCTION TO ROLE SF_Intelligence_Demo;
 GRANT USAGE ON ALL CORTEX SEARCH SERVICES IN SCHEMA DB_TERRANEX.PRODUCTION TO ROLE SF_Intelligence_Demo;

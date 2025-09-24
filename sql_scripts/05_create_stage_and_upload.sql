@@ -14,7 +14,9 @@ USE SCHEMA PRODUCTION;
 -- CRÉATION DU STAGE POUR DOCUMENTS TERRANEX
 -- ======================================================================
 -- SÉCURISÉ: Pas de remplacement automatique
-CREATE STAGE TERRANEX_DOCUMENTS_STAGE
+-- LEÇON: IF NOT EXISTS + DIRECTORY ENABLE pour parsing
+CREATE STAGE IF NOT EXISTS TERRANEX_DOCUMENTS_STAGE
+    DIRECTORY = (ENABLE = TRUE)
     COMMENT = 'Stage pour documents non structurés Terranex - Réglementation, Procédures, Techniques, Contrats';
 
 SELECT '📁 Stage TERRANEX_DOCUMENTS_STAGE créé avec succès !' AS status;

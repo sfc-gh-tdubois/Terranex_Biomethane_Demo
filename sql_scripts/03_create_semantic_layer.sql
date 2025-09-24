@@ -14,7 +14,8 @@ USE SCHEMA PRODUCTION;
 -- VUE ANALYTIQUE TERRANEX BIOMÉTHANE (Alternative à la vue sémantique)
 -- ======================================================================
 -- SÉCURISÉ: Pas de remplacement automatique
-CREATE VIEW TERRANEX_BIOMETHANE_ANALYTICS_VIEW AS
+-- LEÇON: IF NOT EXISTS pour réutilisabilité
+CREATE VIEW IF NOT EXISTS TERRANEX_BIOMETHANE_ANALYTICS_VIEW AS
 SELECT 
     -- Clés primaires
     inj.ID_INJECTION,

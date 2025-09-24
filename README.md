@@ -129,7 +129,18 @@ snow sql -f sql_scripts/99_RESET_ENVIRONMENT.sql
 ### 🔒 Scripts de sécurité
 
 - **`00_VERIFY_ENVIRONMENT.sql`** : Vérification non-destructive de l'environnement
+- **`11_grant_permissions.sql`** : Attribution permissions complètes (correction problèmes)
 - **`99_RESET_ENVIRONMENT.sql`** : ⚠️ **Script destructeur** avec double confirmation requise
+
+### 🎓 Leçons terrain intégrées
+
+**Scripts améliorés avec expérience réelle :**
+- ✅ `IF NOT EXISTS` partout pour réutilisabilité
+- ✅ `GRANT SELECT` (pas USAGE) pour les vues
+- ✅ `REVOKE CURRENT GRANTS` pour ownership complexe
+- ✅ Configuration defaults automatique
+- ✅ Protection contre doublons de données
+- ✅ Permissions agents dès le début
 
 ### Documents Terranex
 

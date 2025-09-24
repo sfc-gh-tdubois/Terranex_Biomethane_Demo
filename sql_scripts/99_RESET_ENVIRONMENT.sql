@@ -43,7 +43,8 @@ SELECT '🗄️ Prise d''ownership et suppression DB_TERRANEX...' AS etape;
 
 -- ÉTAPE CRITIQUE: Prendre ownership avec révocation des grants dépendants
 -- (Nécessaire car la base appartient au rôle SF_Intelligence_Demo)
--- REVOKE CURRENT GRANTS évite les erreurs de grants dépendants
+-- LEÇON TERRAIN: REVOKE CURRENT GRANTS évite les erreurs "Dependent grant exists"
+-- Découvert lors suppression SF_AI_NATRAN_DEMO avec erreur APPLYBUDGET
 GRANT OWNERSHIP ON DATABASE DB_TERRANEX TO ROLE ACCOUNTADMIN REVOKE CURRENT GRANTS;
 
 -- Suppression de la base complète (supprime automatiquement tous les objets)

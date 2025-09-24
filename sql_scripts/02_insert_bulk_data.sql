@@ -12,6 +12,7 @@ USE SCHEMA PRODUCTION;
 -- ======================================================================
 -- INSERTION SITES DE PRODUCTION (50 sites)
 -- ======================================================================
+-- LEÇON: Protection contre doublons avec WHERE NOT EXISTS
 INSERT INTO SITE_DIM 
 SELECT 
     ROW_NUMBER() OVER (ORDER BY SEQ4()) AS id_site,
@@ -98,7 +99,8 @@ SELECT
     END AS statut_operationnel,
     DATEADD(day, -(ROW_NUMBER() OVER (ORDER BY SEQ4()) % 1000), '2024-01-01') AS date_mise_service,
     CURRENT_TIMESTAMP() AS created_at
-FROM TABLE(GENERATOR(ROWCOUNT => 50));
+FROM TABLE(GENERATOR(ROWCOUNT => 50))
+WHERE NOT EXISTS (SELECT 1 FROM SITE_DIM LIMIT 1);
 
 -- ======================================================================
 -- INSERTION DIMENSION TEMPORELLE (1000 dates)
@@ -132,7 +134,8 @@ SELECT
 FROM (
     SELECT DATEADD(day, SEQ4(), '2022-01-01') AS generated_date
     FROM TABLE(GENERATOR(ROWCOUNT => 1000))
-);
+)
+WHERE NOT EXISTS (SELECT 1 FROM TEMPS_DIM LIMIT 1);
 
 -- ======================================================================
 -- INSERTION POSTES RÉSEAU (100 postes)
@@ -188,7 +191,8 @@ SELECT
         ELSE 'ACTIF'
     END AS statut_operationnel,
     CURRENT_TIMESTAMP() AS created_at
-FROM TABLE(GENERATOR(ROWCOUNT => 100));
+FROM TABLE(GENERATOR(ROWCOUNT => 100))
+WHERE NOT EXISTS (SELECT 1 FROM RESEAU_DIM LIMIT 1);
 
 -- ======================================================================
 -- INSERTION ANALYSES QUALITÉ (500 analyses)
@@ -217,7 +221,8 @@ SELECT
         WHEN 2 THEN 'Analyse en ligne'
     END AS methode_analyse,
     CURRENT_TIMESTAMP() AS created_at
-FROM TABLE(GENERATOR(ROWCOUNT => 500));
+FROM TABLE(GENERATOR(ROWCOUNT => 500))
+WHERE NOT EXISTS (SELECT 1 FROM QUALITE_DIM LIMIT 1);
 
 -- ======================================================================
 -- INSERTION TABLE DE FAITS - INJECTIONS (10,000 enregistrements)
@@ -246,7 +251,8 @@ SELECT
         ELSE 'COMPLETE'
     END AS statut_injection,
     CURRENT_TIMESTAMP() AS created_at
-FROM TABLE(GENERATOR(ROWCOUNT => 10000));
+FROM TABLE(GENERATOR(ROWCOUNT => 10000))
+WHERE NOT EXISTS (SELECT 1 FROM INJECTION_FACT LIMIT 1);
 
 -- ======================================================================
 -- VÉRIFICATION DES DONNÉES INSÉRÉES

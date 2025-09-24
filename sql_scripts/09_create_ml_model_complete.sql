@@ -16,7 +16,8 @@ USE SCHEMA PRODUCTION;
 
 -- Préparation des données d'entraînement
 -- SÉCURISÉ: Pas de remplacement automatique
-CREATE VIEW ML_TRAINING_DATA AS
+-- LEÇON: IF NOT EXISTS pour éviter conflits
+CREATE VIEW IF NOT EXISTS ML_TRAINING_DATA AS
 SELECT 
     -- Features (variables explicatives)
     s.CAPACITE_NOMINALE_MWH_JOUR,
@@ -73,7 +74,8 @@ SELECT '🤖 Spécifications modèle ML documentées pour Model Registry !' AS s
 -- ======================================================================
 
 -- SÉCURISÉ: Pas de remplacement automatique
-CREATE PROCEDURE PREDICT_TERRANEX_PRODUCTION(
+-- LEÇON: IF NOT EXISTS pour procédures réutilisables
+CREATE PROCEDURE IF NOT EXISTS PREDICT_TERRANEX_PRODUCTION(
     site_id INT,
     mois_prediction INT
 )

@@ -24,7 +24,8 @@ SELECT 'AGENT 3 - TERRANEX_EXPERT_COMPLET' AS agent_name,
 -- ======================================================================
 
 -- SÉCURISÉ: Pas de remplacement automatique
-CREATE TABLE TERRANEX_QUESTIONS_BASE (
+-- LEÇON: IF NOT EXISTS pour éviter conflits questions
+CREATE TABLE IF NOT EXISTS TERRANEX_QUESTIONS_BASE (
     ID INT AUTOINCREMENT PRIMARY KEY,
     CATEGORIE VARCHAR(50),
     QUESTION TEXT,
