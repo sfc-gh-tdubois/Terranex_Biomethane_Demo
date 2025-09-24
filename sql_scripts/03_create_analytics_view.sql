@@ -1,8 +1,8 @@
 -- ======================================================================
--- TERRANEX BIOMÉTHANE - ÉTAPE 2: COUCHE SÉMANTIQUE
+-- TERRANEX BIOMÉTHANE - ÉTAPE 4: VUE ANALYTIQUE (APRÈS SEMANTIC VIEW)
 -- ======================================================================
--- Description: Création de la vue sémantique pour analyse intelligente des données
--- Tables: INJECTION_FACT + 4 dimensions
+-- Description: Création de la vue analytique pour analyses détaillées
+-- Tables: INJECTION_FACT + 4 dimensions  
 -- Propriétaire: Role SF_Intelligence_Demo
 -- ======================================================================
 
@@ -114,4 +114,4 @@ SELECT
     COUNT(DISTINCT technologie)::VARCHAR
 FROM TERRANEX_BIOMETHANE_ANALYTICS_VIEW;
 
-SELECT '✅ ÉTAPE 2 TERMINÉE - Couche sémantique prête pour l''agent 1 !' AS status;
+SELECT '✅ ÉTAPE 4 TERMINÉE - Vue analytique prête pour analyses détaillées !' AS status;

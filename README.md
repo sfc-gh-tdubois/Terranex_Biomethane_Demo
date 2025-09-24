@@ -115,15 +115,17 @@ snow sql -f sql_scripts/99_RESET_ENVIRONMENT.sql
 | `00_VERIFY_ENVIRONMENT.sql` | Vérification prérequis et environnement | - | ✅ Lecture seule |
 | **`COMPLETE_SETUP.sql`** | **🚀 INSTALLATION AUTONOME COMPLÈTE** | **TOUT en 5-10 min** | **🔒 IF NOT EXISTS** |
 | `01_setup_database_and_tables.sql` | Base DB_TERRANEX + 5 tables | Database, Schema, Tables | 🔒 CREATE uniquement |
-| `02_insert_bulk_data.sql` | Insertion données volumineuses | 11,650 enregistrements | ✅ INSERT uniquement |
-| `03_create_semantic_layer.sql` | Vue analytique multi-tables | Vue avec jointures | 🔒 CREATE uniquement |
-| `04_create_agent_1.sql` | Agent analyse production | Spécifications agent | ✅ Documentation |
-| `05_create_stage_and_upload.sql` | Stage + upload documents | Stage + 38 fichiers | 🔒 CREATE uniquement |
-| `06_parse_documents.sql` | Parsing contenu documents | Table parsed content | 🔒 CREATE uniquement |
-| `07_create_cortex_search.sql` | Services recherche sémantique | 5 services Cortex | 🔒 CREATE uniquement |
-| `08_create_agent_2.sql` | Agent expert documents | Spécifications agent | ✅ Documentation |
-| `09_create_ml_model_complete.sql` | ML Model + Registry + Procedure | Modèle + Procédure | 🔒 CREATE uniquement |
-| `10_create_agent_3_complete.sql` | Agent expert complet + questions | Agent + 29 questions | 🔒 CREATE uniquement |
+| `02_insert_bulk_data.sql` | **RENOMMÉ** `04_insert_bulk_data.sql` | - | - |
+| `03_create_semantic_view.sql` | **🧠 VUE SÉMANTIQUE** pour Cortex Analyst | Semantic View complète | 🔒 CREATE uniquement |
+| `04_insert_bulk_data.sql` | Insertion données volumineuses | 11,650 enregistrements | ✅ INSERT uniquement |
+| `05_create_agent_1.sql` | **Agent 1** avec semantic view | Spécifications agent | ✅ Documentation |
+| `06_create_stage_and_upload.sql` | Stage + upload documents | Stage + 38 fichiers | 🔒 CREATE uniquement |
+| `07_parse_documents.sql` | Parsing contenu documents | Table parsed content | 🔒 CREATE uniquement |
+| `08_create_cortex_search.sql` | Services recherche sémantique | 5 services Cortex | 🔒 CREATE uniquement |
+| `09_create_agent_2.sql` | Agent expert documents | Spécifications agent | ✅ Documentation |
+| `10_create_ml_model_complete.sql` | ML Model + Registry + Procedure | Modèle + Procédure | 🔒 CREATE uniquement |
+| `11_create_agent_3_complete.sql` | Agent expert complet + questions | Agent + 29 questions | 🔒 CREATE uniquement |
+| `12_grant_permissions.sql` | Attribution permissions complètes | Permissions dédiées | ✅ GRANT uniquement |
 | `99_RESET_ENVIRONMENT.sql` | **⚠️ RÉINITIALISATION COMPLÈTE** | - | 🚨 **DESTRUCTEUR** |
 
 ### 🔒 Scripts de sécurité

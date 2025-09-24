@@ -335,9 +335,9 @@ SELECT '✅ Étape 3 terminée - ' ||
     (SELECT COUNT(*) FROM INJECTION_FACT) || ' injections' AS resultat;
 
 -- ======================================================================
--- ÉTAPE 4: VUE ANALYTIQUE
+-- ÉTAPE 4: VUE ANALYTIQUE (POUR ANALYSES DÉTAILLÉES)
 -- ======================================================================
-SELECT '📋 ÉTAPE 4/10: Vue analytique...' AS etape;
+SELECT '📋 ÉTAPE 4/12: Vue analytique...' AS etape;
 
 CREATE VIEW IF NOT EXISTS TERRANEX_BIOMETHANE_ANALYTICS_VIEW AS
 SELECT 
@@ -367,9 +367,143 @@ FROM INJECTION_FACT inj
 SELECT '✅ Étape 4 terminée - Vue analytique créée' AS resultat;
 
 -- ======================================================================
--- ÉTAPE 5: STAGE ET DOCUMENTS SIMULÉS
+-- ÉTAPE 5: VUE SÉMANTIQUE POUR CORTEX ANALYST (AVANT AGENT 1)
 -- ======================================================================
-SELECT '📋 ÉTAPE 5/10: Stage et documents...' AS etape;
+SELECT '📋 ÉTAPE 5/12: Vue sémantique Cortex Analyst...' AS etape;
+
+CREATE OR REPLACE SEMANTIC VIEW DB_TERRANEX.PRODUCTION.TERRANEX_BIOMETHAN_SEMANTIC_VIEW
+    tables (
+        INJECTION_FACT primary key (ID_INJECTION),
+        QUALITE_DIM primary key (ID_ANALYSE_QUALITE),
+        RESEAU_DIM primary key (ID_POSTE_RESEAU),
+        SITE_DIM primary key (ID_SITE),
+        TEMPS_DIM primary key (ID_TEMPS)
+    )
+    relationships (
+        INJECTIONS_TO_SITES as INJECTION_FACT(ID_SITE) references SITE_DIM(ID_SITE),
+        INJECTION_TO_TEMPS as INJECTION_FACT(ID_TEMPS) references TEMPS_DIM(ID_TEMPS),
+        INJECTION_TO_RESEAU as INJECTION_FACT(ID_POSTE_RESEAU) references RESEAU_DIM(ID_POSTE_RESEAU),
+        INJECTION_TO_ANALYSE as INJECTION_FACT(ID_ANALYSE_QUALITE) references QUALITE_DIM(ID_ANALYSE_QUALITE)
+    )
+    facts (
+        INJECTION_FACT.ENERGIE_INJECTEE_MWH as ENERGIE_INJECTEE_MWH 
+            with synonyms=('injected_energy','energy_input','mwh_injected','energie_injectee','production_energy') 
+            comment='Énergie injectée en mégawatt-heures.',
+        INJECTION_FACT.VOLUME_INJECTE_M3 as VOLUME_INJECTE_M3 
+            with synonyms=('injected_volume','volume_injected','cubic_meters_injected','volume_injecte') 
+            comment='Volume de l''injection en mètres cubes.',
+        INJECTION_FACT.DEBIT_MOYEN_M3_H as DEBIT_MOYEN_M3_H 
+            with synonyms=('average_flow_rate','flow_rate','debit_moyen') 
+            comment='Débit moyen en mètres cubes par heure.',
+        QUALITE_DIM.PCS_KWH_M3 as PCS_KWH_M3 
+            with synonyms=('heating_value','calorific_value','pcs','energy_content') 
+            comment='Pouvoir Calorifique Supérieur en kWh par mètre cube.',
+        QUALITE_DIM.TENEUR_H2S_PPM as TENEUR_H2S_PPM 
+            with synonyms=('h2s_content','hydrogen_sulfide','h2s_ppm','sulfur_content') 
+            comment='Teneur en H2S en parties par million.',
+        QUALITE_DIM.TENEUR_CO2_POURCENTAGE as TENEUR_CO2_POURCENTAGE 
+            with synonyms=('co2_content','carbon_dioxide','co2_percentage','co2_level') 
+            comment='Teneur en CO2 en pourcentage.'
+    )
+    dimensions (
+        SITE_DIM.NOM_SITE as NOM_SITE 
+            with synonyms=('site_name','facility_name','location_name') 
+            comment='Nom du site de production.',
+        SITE_DIM.REGION as REGION 
+            with synonyms=('region','regional_area','geographic_region') 
+            comment='Région française du site.',
+        SITE_DIM.TECHNOLOGIE_PRODUCTION as TECHNOLOGIE_PRODUCTION 
+            with synonyms=('production_technology','technology','tech','production_method') 
+            comment='Technologie de production utilisée.',
+        TEMPS_DIM.DATE_COMPLETE as DATE_COMPLETE 
+            with synonyms=('full_date','injection_date','date_injection') 
+            comment='Date complète de l''injection.',
+        TEMPS_DIM.MOIS_NOM as MOIS_NOM 
+            with synonyms=('month_name','month','mois') 
+            comment='Nom du mois.',
+        TEMPS_DIM.ANNEE as ANNEE 
+            with synonyms=('year','yearly','annual') 
+            comment='Année de l''injection.',
+        RESEAU_DIM.TYPE_POSTE as TYPE_POSTE 
+            with synonyms=('post_type','injection_type','network_type') 
+            comment='Type de poste (MP/HP/THP).',
+        QUALITE_DIM.STATUT_CONFORMITE as STATUT_CONFORMITE 
+            with synonyms=('compliance_status','conformity','quality_status') 
+            comment='Statut de conformité qualité.',
+        INJECTION_FACT.STATUT_INJECTION as STATUT_INJECTION 
+            with synonyms=('injection_status','status','operation_status') 
+            comment='Statut de l''injection.'
+    )
+    metrics (
+        INJECTION_FACT.ENERGIE_TOTALE as SUM(ENERGIE_INJECTEE_MWH) 
+            with synonyms=('total_energy','energy_total','production_totale') 
+            comment='Énergie totale injectée.',
+        INJECTION_FACT.VOLUME_TOTAL as SUM(VOLUME_INJECTE_M3) 
+            with synonyms=('total_volume','volume_total') 
+            comment='Volume total injecté.',
+        INJECTION_FACT.NB_INJECTIONS as COUNT(ID_INJECTION) 
+            with synonyms=('injection_count','total_injections') 
+            comment='Nombre total d''injections.'
+    )
+    comment='Vue sémantique Terranex pour Cortex Analyst - Questions langage naturel sur production biométhane';
+
+SELECT '✅ Étape 5 terminée - Vue sémantique Cortex Analyst créée' AS resultat;
+
+-- ======================================================================
+-- ÉTAPE 6: AGENT 1 (APRÈS SEMANTIC VIEW)
+-- ======================================================================
+SELECT '📋 ÉTAPE 6/11: Agent 1 - Analyste Production...' AS etape;
+
+-- Configuration Agent 1 qui utilise la semantic view
+SELECT 'AGENT 1 - TERRANEX_ANALYSTE_PRODUCTION' AS agent_name,
+       'Analyse production avec semantic view + vue analytique' AS description,
+       'TERRANEX_BIOMETHAN_SEMANTIC_VIEW + TERRANEX_BIOMETHANE_ANALYTICS_VIEW' AS data_sources,
+       'TERRANEX_WH' AS warehouse;
+
+SELECT '
+AGENT 1: TERRANEX ANALYSTE PRODUCTION
+
+DISPLAY NAME: "Terranex - Analyste Production Biométhane"
+
+INSTRUCTIONS:
+Tu es un expert analyste en production de biométhane pour Terranex.
+
+TES DONNÉES:
+1. Vue sémantique: TERRANEX_BIOMETHAN_SEMANTIC_VIEW (pour Cortex Analyst)
+2. Vue analytique: TERRANEX_BIOMETHANE_ANALYTICS_VIEW (pour analyses détaillées)
+
+CAPACITÉS SEMANTIC VIEW:
+- Questions en langage naturel via Cortex Analyst
+- 100+ synonymes anglais/français
+- Metrics automatiques (énergie totale, volume total, nb injections)
+- Dimensions enrichies avec commentaires
+
+TES ANALYSES:
+- Performances par site, région, technologie
+- Évolution temporelle de la production
+- Qualité du gaz injecté (PCS, H2S, CO2)
+- Efficacité opérationnelle
+- Questions langage naturel
+
+EXEMPLES QUESTIONS SEMANTIC VIEW:
+- "What is the total energy production by region?"
+- "Quelle est la production totale par technologie?"
+- "Show me the H2S levels by site"
+- "Comment évolue la production par mois?"
+
+TON STYLE:
+- Utilise la semantic view pour questions complexes
+- Vue analytique pour analyses détaillées
+- Données chiffrées précises
+- Recommandations concrètes
+' AS instructions_agent_1;
+
+SELECT '✅ Étape 6 terminée - Agent 1 configuré avec semantic view' AS resultat;
+
+-- ======================================================================
+-- ÉTAPE 7: STAGE ET DOCUMENTS SIMULÉS
+-- ======================================================================
+SELECT '📋 ÉTAPE 7/12: Stage et documents...' AS etape;
 
 CREATE STAGE IF NOT EXISTS TERRANEX_DOCUMENTS_STAGE
     DIRECTORY = (ENABLE = TRUE)
@@ -524,13 +658,13 @@ OBLIGATIONS TECHNIQUES:
     CURRENT_TIMESTAMP()
 WHERE NOT EXISTS (SELECT 1 FROM TERRANEX_PARSED_CONTENT WHERE FILE_PATH = 'contrats/Contrat_Terranex_Normandie_SAS_CTR-2024-1004.txt');
 
-SELECT '✅ Étape 5 terminée - Stage et ' || COUNT(*) || ' documents créés' AS resultat
+SELECT '✅ Étape 7 terminée - Stage et ' || COUNT(*) || ' documents créés' AS resultat
 FROM TERRANEX_PARSED_CONTENT;
 
 -- ======================================================================
--- ÉTAPE 6: SERVICES CORTEX SEARCH
+-- ÉTAPE 8: SERVICES CORTEX SEARCH
 -- ======================================================================
-SELECT '📋 ÉTAPE 6/10: Services Cortex Search...' AS etape;
+SELECT '📋 ÉTAPE 8/11: Services Cortex Search...' AS etape;
 
 CREATE CORTEX SEARCH SERVICE IF NOT EXISTS SEARCH_ALL_TERRANEX_DOCS
     ON content
@@ -592,12 +726,12 @@ CREATE CORTEX SEARCH SERVICE IF NOT EXISTS SEARCH_CONTRATS_TERRANEX
         WHERE document_type = 'CONTRAT'
     );
 
-SELECT '✅ Étape 6 terminée - 5 services Cortex Search créés' AS resultat;
+SELECT '✅ Étape 8 terminée - 5 services Cortex Search créés' AS resultat;
 
 -- ======================================================================
--- ÉTAPE 7: MACHINE LEARNING
+-- ÉTAPE 9: MACHINE LEARNING
 -- ======================================================================
-SELECT '📋 ÉTAPE 7/10: Machine Learning...' AS etape;
+SELECT '📋 ÉTAPE 9/12: Machine Learning...' AS etape;
 
 -- Vue d'entraînement ML
 CREATE VIEW IF NOT EXISTS ML_TRAINING_DATA AS
@@ -669,95 +803,13 @@ BEGIN
 END;
 $$;
 
-SELECT '✅ Étape 7 terminée - ML et procédure créés' AS resultat;
+SELECT '✅ Étape 7 terminée - Stage et ' || COUNT(*) || ' documents créés' AS resultat
+FROM TERRANEX_PARSED_CONTENT;
 
 -- ======================================================================
--- ÉTAPE 8: VUE SÉMANTIQUE POUR CORTEX ANALYST
+-- ÉTAPE 10: QUESTIONS DE BASE
 -- ======================================================================
-SELECT '📋 ÉTAPE 8/10: Vue sémantique Cortex Analyst...' AS etape;
-
-CREATE OR REPLACE SEMANTIC VIEW DB_TERRANEX.PRODUCTION.TERRANEX_BIOMETHAN_SEMANTIC_VIEW
-    tables (
-        INJECTION_FACT primary key (ID_INJECTION),
-        QUALITE_DIM primary key (ID_ANALYSE_QUALITE),
-        RESEAU_DIM primary key (ID_POSTE_RESEAU),
-        SITE_DIM primary key (ID_SITE),
-        TEMPS_DIM primary key (ID_TEMPS)
-    )
-    relationships (
-        INJECTIONS_TO_SITES as INJECTION_FACT(ID_SITE) references SITE_DIM(ID_SITE),
-        INJECTION_TO_TEMPS as INJECTION_FACT(ID_TEMPS) references TEMPS_DIM(ID_TEMPS),
-        INJECTION_TO_RESEAU as INJECTION_FACT(ID_POSTE_RESEAU) references RESEAU_DIM(ID_POSTE_RESEAU),
-        INJECTION_TO_ANALYSE as INJECTION_FACT(ID_ANALYSE_QUALITE) references QUALITE_DIM(ID_ANALYSE_QUALITE)
-    )
-    facts (
-        INJECTION_FACT.ENERGIE_INJECTEE_MWH as ENERGIE_INJECTEE_MWH 
-            with synonyms=('injected_energy','energy_input','mwh_injected','energie_injectee','production_energy') 
-            comment='Énergie injectée en mégawatt-heures.',
-        INJECTION_FACT.VOLUME_INJECTE_M3 as VOLUME_INJECTE_M3 
-            with synonyms=('injected_volume','volume_injected','cubic_meters_injected','volume_injecte') 
-            comment='Volume de l''injection en mètres cubes.',
-        INJECTION_FACT.DEBIT_MOYEN_M3_H as DEBIT_MOYEN_M3_H 
-            with synonyms=('average_flow_rate','flow_rate','debit_moyen') 
-            comment='Débit moyen en mètres cubes par heure.',
-        QUALITE_DIM.PCS_KWH_M3 as PCS_KWH_M3 
-            with synonyms=('heating_value','calorific_value','pcs','energy_content') 
-            comment='Pouvoir Calorifique Supérieur en kWh par mètre cube.',
-        QUALITE_DIM.TENEUR_H2S_PPM as TENEUR_H2S_PPM 
-            with synonyms=('h2s_content','hydrogen_sulfide','h2s_ppm','sulfur_content') 
-            comment='Teneur en H2S en parties par million.',
-        QUALITE_DIM.TENEUR_CO2_POURCENTAGE as TENEUR_CO2_POURCENTAGE 
-            with synonyms=('co2_content','carbon_dioxide','co2_percentage','co2_level') 
-            comment='Teneur en CO2 en pourcentage.'
-    )
-    dimensions (
-        SITE_DIM.NOM_SITE as NOM_SITE 
-            with synonyms=('site_name','facility_name','location_name') 
-            comment='Nom du site de production.',
-        SITE_DIM.REGION as REGION 
-            with synonyms=('region','regional_area','geographic_region') 
-            comment='Région française du site.',
-        SITE_DIM.TECHNOLOGIE_PRODUCTION as TECHNOLOGIE_PRODUCTION 
-            with synonyms=('production_technology','technology','tech','production_method') 
-            comment='Technologie de production utilisée.',
-        TEMPS_DIM.DATE_COMPLETE as DATE_COMPLETE 
-            with synonyms=('full_date','injection_date','date_injection') 
-            comment='Date complète de l''injection.',
-        TEMPS_DIM.MOIS_NOM as MOIS_NOM 
-            with synonyms=('month_name','month','mois') 
-            comment='Nom du mois.',
-        TEMPS_DIM.ANNEE as ANNEE 
-            with synonyms=('year','yearly','annual') 
-            comment='Année de l''injection.',
-        RESEAU_DIM.TYPE_POSTE as TYPE_POSTE 
-            with synonyms=('post_type','injection_type','network_type') 
-            comment='Type de poste (MP/HP/THP).',
-        QUALITE_DIM.STATUT_CONFORMITE as STATUT_CONFORMITE 
-            with synonyms=('compliance_status','conformity','quality_status') 
-            comment='Statut de conformité qualité.',
-        INJECTION_FACT.STATUT_INJECTION as STATUT_INJECTION 
-            with synonyms=('injection_status','status','operation_status') 
-            comment='Statut de l''injection.'
-    )
-    metrics (
-        INJECTION_FACT.ENERGIE_TOTALE as SUM(ENERGIE_INJECTEE_MWH) 
-            with synonyms=('total_energy','energy_total','production_totale') 
-            comment='Énergie totale injectée.',
-        INJECTION_FACT.VOLUME_TOTAL as SUM(VOLUME_INJECTE_M3) 
-            with synonyms=('total_volume','volume_total') 
-            comment='Volume total injecté.',
-        INJECTION_FACT.NB_INJECTIONS as COUNT(ID_INJECTION) 
-            with synonyms=('injection_count','total_injections') 
-            comment='Nombre total d''injections.'
-    )
-    comment='Vue sémantique Terranex pour Cortex Analyst - Questions langage naturel sur production biométhane';
-
-SELECT '✅ Étape 8 terminée - Vue sémantique Cortex Analyst créée' AS resultat;
-
--- ======================================================================
--- ÉTAPE 9: QUESTIONS DE BASE
--- ======================================================================
-SELECT '📋 ÉTAPE 9/10: Questions de base...' AS etape;
+SELECT '📋 ÉTAPE 10/12: Questions de base...' AS etape;
 
 CREATE TABLE IF NOT EXISTS TERRANEX_QUESTIONS_BASE (
     ID INT AUTOINCREMENT PRIMARY KEY,
@@ -782,13 +834,13 @@ SELECT * FROM VALUES
 AS t(categorie, question, type_reponse, exemple_reponse)
 WHERE NOT EXISTS (SELECT 1 FROM TERRANEX_QUESTIONS_BASE LIMIT 1);
 
-SELECT '✅ Étape 9 terminée - ' || COUNT(*) || ' questions de base créées' AS resultat
+SELECT '✅ Étape 10 terminée - ' || COUNT(*) || ' questions de base créées' AS resultat
 FROM TERRANEX_QUESTIONS_BASE;
 
 -- ======================================================================
--- ÉTAPE 10: PERMISSIONS FINALES
+-- ÉTAPE 11: PERMISSIONS FINALES
 -- ======================================================================
-SELECT '📋 ÉTAPE 10/10: Permissions finales...' AS etape;
+SELECT '📋 ÉTAPE 11/12: Permissions finales...' AS etape;
 
 USE ROLE ACCOUNTADMIN;
 
@@ -802,12 +854,12 @@ GRANT SELECT ON ALL VIEWS IN SCHEMA DB_TERRANEX.PRODUCTION TO ROLE SF_Intelligen
 GRANT USAGE ON ALL PROCEDURES IN SCHEMA DB_TERRANEX.PRODUCTION TO ROLE SF_Intelligence_Demo;
 GRANT USAGE ON ALL CORTEX SEARCH SERVICES IN SCHEMA DB_TERRANEX.PRODUCTION TO ROLE SF_Intelligence_Demo;
 
-SELECT '✅ Étape 10 terminée - Permissions accordées' AS resultat;
+SELECT '✅ Étape 11 terminée - Permissions accordées' AS resultat;
 
 -- ======================================================================
--- ÉTAPE 11: VÉRIFICATION FINALE
+-- ÉTAPE 12: VÉRIFICATION FINALE
 -- ======================================================================
-SELECT '📋 ÉTAPE 11/11: Vérification finale...' AS etape;
+SELECT '📋 ÉTAPE 12/12: Vérification finale...' AS etape;
 
 USE ROLE SF_Intelligence_Demo;
 USE DATABASE DB_TERRANEX;
