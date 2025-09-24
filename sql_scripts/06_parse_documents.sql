@@ -13,7 +13,8 @@ USE SCHEMA PRODUCTION;
 -- ======================================================================
 -- CRÉATION TABLE POUR CONTENU PARSÉ
 -- ======================================================================
-CREATE OR REPLACE TABLE TERRANEX_PARSED_CONTENT (
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE TABLE TERRANEX_PARSED_CONTENT (
     FILE_PATH VARCHAR(500) PRIMARY KEY,
     FILENAME VARCHAR(200) NOT NULL,
     DOCUMENT_TYPE VARCHAR(50) NOT NULL,

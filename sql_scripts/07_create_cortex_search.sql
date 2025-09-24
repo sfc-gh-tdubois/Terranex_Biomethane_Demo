@@ -13,7 +13,8 @@ USE SCHEMA PRODUCTION;
 -- ======================================================================
 -- SERVICE CORTEX SEARCH GLOBAL - TOUS DOCUMENTS
 -- ======================================================================
-CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_ALL_TERRANEX_DOCS
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE CORTEX SEARCH SERVICE SEARCH_ALL_TERRANEX_DOCS
     ON content
     ATTRIBUTES file_path, filename, title, document_type, category
     WAREHOUSE = TERRANEX_WH
@@ -36,7 +37,8 @@ SELECT '🔍 Service SEARCH_ALL_TERRANEX_DOCS créé !' AS status;
 -- ======================================================================
 -- SERVICE CORTEX SEARCH - RÉGLEMENTATION CRE
 -- ======================================================================
-CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_REGLEMENTATION_TERRANEX
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE CORTEX SEARCH SERVICE SEARCH_REGLEMENTATION_TERRANEX
     ON content
     ATTRIBUTES file_path, filename, title
     WAREHOUSE = TERRANEX_WH
@@ -57,7 +59,8 @@ SELECT '📜 Service SEARCH_REGLEMENTATION_TERRANEX créé !' AS status;
 -- ======================================================================
 -- SERVICE CORTEX SEARCH - PROCÉDURES INTERNES
 -- ======================================================================
-CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_PROCEDURES_TERRANEX
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE CORTEX SEARCH SERVICE SEARCH_PROCEDURES_TERRANEX
     ON content
     ATTRIBUTES file_path, filename, title
     WAREHOUSE = TERRANEX_WH
@@ -78,7 +81,8 @@ SELECT '📋 Service SEARCH_PROCEDURES_TERRANEX créé !' AS status;
 -- ======================================================================
 -- SERVICE CORTEX SEARCH - DOCUMENTS TECHNIQUES
 -- ======================================================================
-CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_TECHNIQUES_TERRANEX
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE CORTEX SEARCH SERVICE SEARCH_TECHNIQUES_TERRANEX
     ON content
     ATTRIBUTES file_path, filename, title
     WAREHOUSE = TERRANEX_WH
@@ -99,7 +103,8 @@ SELECT '🔧 Service SEARCH_TECHNIQUES_TERRANEX créé !' AS status;
 -- ======================================================================
 -- SERVICE CORTEX SEARCH - CONTRATS
 -- ======================================================================
-CREATE OR REPLACE CORTEX SEARCH SERVICE SEARCH_CONTRATS_TERRANEX
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE CORTEX SEARCH SERVICE SEARCH_CONTRATS_TERRANEX
     ON content
     ATTRIBUTES file_path, filename, title
     WAREHOUSE = TERRANEX_WH

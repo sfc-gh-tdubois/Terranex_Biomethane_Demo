@@ -13,7 +13,8 @@ USE SCHEMA PRODUCTION;
 -- ======================================================================
 -- CRÉATION DU STAGE POUR DOCUMENTS TERRANEX
 -- ======================================================================
-CREATE OR REPLACE STAGE TERRANEX_DOCUMENTS_STAGE
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE STAGE TERRANEX_DOCUMENTS_STAGE
     COMMENT = 'Stage pour documents non structurés Terranex - Réglementation, Procédures, Techniques, Contrats';
 
 SELECT '📁 Stage TERRANEX_DOCUMENTS_STAGE créé avec succès !' AS status;

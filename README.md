@@ -56,36 +56,64 @@ DB_TERRANEX
 - Rôle `SF_Intelligence_Demo` avec permissions appropriées
 - Warehouse `TERRANEX_WH`
 
-### Déploiement en 10 étapes
+### Déploiement sécurisé en 13 étapes
 
 ```bash
 # 1. Cloner le repository
 git clone https://github.com/sfc-gh-tdubois/Terranex_Biomethane_Demo.git
 cd Terranex_Biomethane_Demo
 
-# 2-13. Exécuter les scripts dans l'ordre
+# 2. Vérifier l'environnement (optionnel)
+snow sql -f sql_scripts/00_VERIFY_ENVIRONMENT.sql
+
+# 3-13. Exécuter les scripts dans l'ordre
 snow sql -f sql_scripts/01_setup_database_and_tables.sql
 snow sql -f sql_scripts/02_insert_bulk_data.sql
 snow sql -f sql_scripts/03_create_semantic_layer.sql
-# ... (voir section Scripts ci-dessous)
+snow sql -f sql_scripts/04_create_agent_1.sql
+snow sql -f sql_scripts/05_create_stage_and_upload.sql
+snow sql -f sql_scripts/06_parse_documents.sql
+snow sql -f sql_scripts/07_create_cortex_search.sql
+snow sql -f sql_scripts/08_create_agent_2.sql
+snow sql -f sql_scripts/09_create_ml_model_complete.sql
+snow sql -f sql_scripts/10_create_agent_3_complete.sql
+
+# 14. Créer les agents manuellement dans l'interface Snowflake Intelligence
+```
+
+### 🔒 Sécurité
+
+**Scripts sécurisés** : Tous les scripts utilisent `CREATE` au lieu de `CREATE OR REPLACE` pour éviter les pertes accidentelles.
+
+**Réinitialisation** : Si vous devez recommencer :
+```bash
+# ⚠️ ATTENTION: Supprime TOUT l'environnement
+snow sql -f sql_scripts/99_RESET_ENVIRONMENT.sql
 ```
 
 ## 📁 Structure du projet
 
 ### Scripts SQL (ordre d'exécution)
 
-| Script | Description | Objets créés |
-|--------|-------------|--------------|
-| `01_setup_database_and_tables.sql` | Base DB_TERRANEX + 5 tables | Database, Schema, Tables |
-| `02_insert_bulk_data.sql` | Insertion données volumineuses | 11,650 enregistrements |
-| `03_create_semantic_layer.sql` | Vue analytique multi-tables | Vue avec jointures |
-| `04_create_agent_1.sql` | Agent analyse production | Spécifications agent |
-| `05_create_stage_and_upload.sql` | Stage + upload documents | Stage + 38 fichiers |
-| `06_parse_documents.sql` | Parsing contenu documents | Table parsed content |
-| `07_create_cortex_search.sql` | Services recherche sémantique | 5 services Cortex |
-| `08_create_agent_2.sql` | Agent expert documents | Spécifications agent |
-| `09_create_ml_model_complete.sql` | ML Model + Registry + Procedure | Modèle + Procédure |
-| `10_create_agent_3_complete.sql` | Agent expert complet + questions | Agent + 29 questions |
+| Script | Description | Objets créés | Sécurité |
+|--------|-------------|--------------|----------|
+| `00_VERIFY_ENVIRONMENT.sql` | Vérification prérequis et environnement | - | ✅ Lecture seule |
+| `01_setup_database_and_tables.sql` | Base DB_TERRANEX + 5 tables | Database, Schema, Tables | 🔒 CREATE uniquement |
+| `02_insert_bulk_data.sql` | Insertion données volumineuses | 11,650 enregistrements | ✅ INSERT uniquement |
+| `03_create_semantic_layer.sql` | Vue analytique multi-tables | Vue avec jointures | 🔒 CREATE uniquement |
+| `04_create_agent_1.sql` | Agent analyse production | Spécifications agent | ✅ Documentation |
+| `05_create_stage_and_upload.sql` | Stage + upload documents | Stage + 38 fichiers | 🔒 CREATE uniquement |
+| `06_parse_documents.sql` | Parsing contenu documents | Table parsed content | 🔒 CREATE uniquement |
+| `07_create_cortex_search.sql` | Services recherche sémantique | 5 services Cortex | 🔒 CREATE uniquement |
+| `08_create_agent_2.sql` | Agent expert documents | Spécifications agent | ✅ Documentation |
+| `09_create_ml_model_complete.sql` | ML Model + Registry + Procedure | Modèle + Procédure | 🔒 CREATE uniquement |
+| `10_create_agent_3_complete.sql` | Agent expert complet + questions | Agent + 29 questions | 🔒 CREATE uniquement |
+| `99_RESET_ENVIRONMENT.sql` | **⚠️ RÉINITIALISATION COMPLÈTE** | - | 🚨 **DESTRUCTEUR** |
+
+### 🔒 Scripts de sécurité
+
+- **`00_VERIFY_ENVIRONMENT.sql`** : Vérification non-destructive de l'environnement
+- **`99_RESET_ENVIRONMENT.sql`** : ⚠️ **Script destructeur** avec double confirmation requise
 
 ### Documents Terranex
 

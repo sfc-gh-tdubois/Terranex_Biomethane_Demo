@@ -23,7 +23,8 @@ SELECT 'AGENT 3 - TERRANEX_EXPERT_COMPLET' AS agent_name,
 -- QUESTIONS DE BASE POUR L'AGENT 3
 -- ======================================================================
 
-CREATE OR REPLACE TABLE TERRANEX_QUESTIONS_BASE (
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE TABLE TERRANEX_QUESTIONS_BASE (
     ID INT AUTOINCREMENT PRIMARY KEY,
     CATEGORIE VARCHAR(50),
     QUESTION TEXT,

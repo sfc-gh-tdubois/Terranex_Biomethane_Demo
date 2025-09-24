@@ -9,14 +9,15 @@
 USE ROLE ACCOUNTADMIN;
 
 -- Création et configuration du rôle SF_Intelligence_Demo
-DROP ROLE IF EXISTS SF_Intelligence_Demo;
-CREATE OR REPLACE ROLE SF_Intelligence_Demo;
+-- SÉCURISÉ: Pas de DROP automatique
+CREATE ROLE SF_Intelligence_Demo;
 SET current_user_name = CURRENT_USER();
 GRANT ROLE SF_Intelligence_Demo TO USER IDENTIFIER($current_user_name);
 GRANT CREATE DATABASE ON ACCOUNT TO ROLE SF_Intelligence_Demo;
 
 -- Création du warehouse dédié
-CREATE OR REPLACE WAREHOUSE TERRANEX_WH 
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE WAREHOUSE TERRANEX_WH 
     WITH WAREHOUSE_SIZE = 'SMALL'
     AUTO_SUSPEND = 300
     AUTO_RESUME = TRUE;
@@ -30,7 +31,8 @@ ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = TERRANEX_WH;
 USE ROLE SF_Intelligence_Demo;
 
 -- Création de la base DB_TERRANEX
-CREATE OR REPLACE DATABASE DB_TERRANEX;
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE DATABASE DB_TERRANEX;
 USE DATABASE DB_TERRANEX;
 CREATE SCHEMA IF NOT EXISTS PRODUCTION;
 USE SCHEMA PRODUCTION;
@@ -40,7 +42,8 @@ SELECT '🏗️  Base DB_TERRANEX créée avec succès !' AS status;
 -- ======================================================================
 -- DIMENSION 1: SITES DE PRODUCTION
 -- ======================================================================
-CREATE OR REPLACE TABLE SITE_DIM (
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE TABLE SITE_DIM (
     ID_SITE INT PRIMARY KEY,
     NOM_SITE VARCHAR(100) NOT NULL,
     REGION VARCHAR(50) NOT NULL,
@@ -57,7 +60,8 @@ CREATE OR REPLACE TABLE SITE_DIM (
 -- ======================================================================
 -- DIMENSION 2: DIMENSION TEMPORELLE
 -- ======================================================================
-CREATE OR REPLACE TABLE TEMPS_DIM (
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE TABLE TEMPS_DIM (
     ID_TEMPS INT PRIMARY KEY,
     DATE_COMPLETE DATE NOT NULL,
     ANNEE INT NOT NULL,
@@ -74,7 +78,8 @@ CREATE OR REPLACE TABLE TEMPS_DIM (
 -- ======================================================================
 -- DIMENSION 3: POSTES RÉSEAU
 -- ======================================================================
-CREATE OR REPLACE TABLE RESEAU_DIM (
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE TABLE RESEAU_DIM (
     ID_POSTE_RESEAU INT PRIMARY KEY,
     NOM_POSTE_INJECTION VARCHAR(100) NOT NULL,
     TYPE_POSTE VARCHAR(30) NOT NULL,
@@ -88,7 +93,8 @@ CREATE OR REPLACE TABLE RESEAU_DIM (
 -- ======================================================================
 -- DIMENSION 4: ANALYSES QUALITÉ
 -- ======================================================================
-CREATE OR REPLACE TABLE QUALITE_DIM (
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE TABLE QUALITE_DIM (
     ID_ANALYSE_QUALITE INT PRIMARY KEY,
     PCS_KWH_M3 DECIMAL(8,4) NOT NULL,
     WOBBE_INDEX DECIMAL(8,4) NOT NULL,
@@ -103,7 +109,8 @@ CREATE OR REPLACE TABLE QUALITE_DIM (
 -- ======================================================================
 -- TABLE DE FAITS: INJECTIONS BIOMÉTHANE
 -- ======================================================================
-CREATE OR REPLACE TABLE INJECTION_FACT (
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE TABLE INJECTION_FACT (
     ID_INJECTION INT PRIMARY KEY,
     ID_SITE INT NOT NULL,
     ID_TEMPS INT NOT NULL,

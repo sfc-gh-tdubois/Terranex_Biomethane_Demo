@@ -15,7 +15,8 @@ USE SCHEMA PRODUCTION;
 -- ======================================================================
 
 -- Préparation des données d'entraînement
-CREATE OR REPLACE VIEW ML_TRAINING_DATA AS
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE VIEW ML_TRAINING_DATA AS
 SELECT 
     -- Features (variables explicatives)
     s.CAPACITE_NOMINALE_MWH_JOUR,
@@ -71,7 +72,8 @@ SELECT '🤖 Spécifications modèle ML documentées pour Model Registry !' AS s
 -- ÉTAPE 11: ENCAPSULAGE EN STORED PROCEDURE
 -- ======================================================================
 
-CREATE OR REPLACE PROCEDURE PREDICT_TERRANEX_PRODUCTION(
+-- SÉCURISÉ: Pas de remplacement automatique
+CREATE PROCEDURE PREDICT_TERRANEX_PRODUCTION(
     site_id INT,
     mois_prediction INT
 )
