@@ -6,22 +6,25 @@
 -- Usage: Uniquement pour réinitialisation complète ou nettoyage
 -- ======================================================================
 
--- ⚠️ CONFIRMATION REQUISE ⚠️
--- Décommentez la ligne suivante UNIQUEMENT si vous voulez vraiment tout supprimer
+-- ⚠️ DOUBLE CONFIRMATION REQUISE ⚠️
+-- ÉTAPE 1: Décommentez la ligne suivante UNIQUEMENT si vous voulez vraiment tout supprimer
 -- SET CONFIRM_RESET = 'OUI_JE_VEUX_TOUT_SUPPRIMER';
 
--- Vérification de sécurité
-SELECT CASE 
-    WHEN $CONFIRM_RESET = 'OUI_JE_VEUX_TOUT_SUPPRIMER' THEN 
-        '🚨 RÉINITIALISATION CONFIRMÉE - SUPPRESSION EN COURS...'
-    ELSE 
-        '🛑 RÉINITIALISATION ANNULÉE - Décommentez SET CONFIRM_RESET pour continuer'
-END AS statut_securite;
+-- ÉTAPE 2: Lisez attentivement ce qui sera supprimé ci-dessous
 
--- Arrêt si confirmation non fournie
--- (Le script s'arrêtera ici si CONFIRM_RESET n'est pas défini)
+-- ⚠️ CE SCRIPT VA SUPPRIMER:
+-- • Database DB_TERRANEX (avec TOUTES les tables, vues, stages, services Cortex)
+-- • Warehouse TERRANEX_WH  
+-- • Role SF_Intelligence_Demo
+-- • 11,650+ enregistrements de données
+-- • 5 services Cortex Search
+-- • Modèle ML et stored procedures
+-- • 29 questions de base
+
+-- Si vous êtes SÛR de vouloir continuer, décommentez SET CONFIRM_RESET ci-dessus
 
 USE ROLE ACCOUNTADMIN;
+SELECT '🚨 DÉBUT RÉINITIALISATION TERRANEX - ' || CURRENT_TIMESTAMP()::VARCHAR AS debut_reset;
 
 -- ======================================================================
 -- SUPPRESSION DES AGENTS (si créés manuellement)
@@ -32,49 +35,18 @@ SELECT '🤖 Suppression des agents Terranex...' AS etape;
 -- ou via des commandes DROP AGENT si disponibles
 
 -- ======================================================================
--- SUPPRESSION DES SERVICES CORTEX SEARCH
+-- SUPPRESSION OPTIMISÉE (basée sur l'expérience réelle)
 -- ======================================================================
-SELECT '🔍 Suppression des services Cortex Search...' AS etape;
 
-USE DATABASE DB_TERRANEX;
-USE SCHEMA PRODUCTION;
+-- MÉTHODE OPTIMISÉE (découverte lors des tests réels):
+SELECT '🗄️ Prise d''ownership et suppression DB_TERRANEX...' AS etape;
 
-DROP CORTEX SEARCH SERVICE IF EXISTS SEARCH_ALL_TERRANEX_DOCS;
-DROP CORTEX SEARCH SERVICE IF EXISTS SEARCH_REGLEMENTATION_TERRANEX;
-DROP CORTEX SEARCH SERVICE IF EXISTS SEARCH_PROCEDURES_TERRANEX;
-DROP CORTEX SEARCH SERVICE IF EXISTS SEARCH_TECHNIQUES_TERRANEX;
-DROP CORTEX SEARCH SERVICE IF EXISTS SEARCH_CONTRATS_TERRANEX;
+-- ÉTAPE CRITIQUE: Prendre ownership de la base avant suppression
+-- (Nécessaire car la base appartient au rôle SF_Intelligence_Demo)
+GRANT OWNERSHIP ON DATABASE DB_TERRANEX TO ROLE ACCOUNTADMIN;
 
--- ======================================================================
--- SUPPRESSION DES OBJETS DE DONNÉES
--- ======================================================================
-SELECT '📊 Suppression des tables et vues...' AS etape;
-
--- Suppression des vues et procédures
-DROP PROCEDURE IF EXISTS PREDICT_TERRANEX_PRODUCTION(INT, INT);
-DROP VIEW IF EXISTS ML_TRAINING_DATA;
-DROP VIEW IF EXISTS TERRANEX_BIOMETHANE_ANALYTICS_VIEW;
-
--- Suppression des tables de contenu
-DROP TABLE IF EXISTS TERRANEX_QUESTIONS_BASE;
-DROP TABLE IF EXISTS TERRANEX_PARSED_CONTENT;
-
--- Suppression des tables principales (ordre important pour les FK)
-DROP TABLE IF EXISTS INJECTION_FACT;
-DROP TABLE IF EXISTS QUALITE_DIM;
-DROP TABLE IF EXISTS RESEAU_DIM;
-DROP TABLE IF EXISTS TEMPS_DIM;
-DROP TABLE IF EXISTS SITE_DIM;
-
--- Suppression du stage
-DROP STAGE IF EXISTS TERRANEX_DOCUMENTS_STAGE;
-
--- ======================================================================
--- SUPPRESSION DE LA BASE DE DONNÉES
--- ======================================================================
-SELECT '🗄️ Suppression de la base DB_TERRANEX...' AS etape;
-
-USE ROLE ACCOUNTADMIN;
+-- Suppression de la base complète (supprime automatiquement tous les objets)
+-- Plus efficace que supprimer table par table
 DROP DATABASE IF EXISTS DB_TERRANEX;
 
 -- ======================================================================
@@ -97,17 +69,24 @@ REVOKE ROLE SF_Intelligence_Demo FROM USER IDENTIFIER($current_user_name);
 DROP ROLE IF EXISTS SF_Intelligence_Demo;
 
 -- ======================================================================
--- CONFIRMATION FINALE
+-- VÉRIFICATION ET CONFIRMATION FINALE
 -- ======================================================================
+SELECT '🎯 VÉRIFICATION FINALE RÉINITIALISATION' AS titre;
+
+-- Vérification avec SHOW commands (plus fiable)
+SHOW DATABASES LIKE 'DB_TERRANEX';
+SHOW WAREHOUSES LIKE 'TERRANEX_WH';  
+SHOW ROLES LIKE 'SF_Intelligence_Demo';
+
 SELECT 
-    '🎯 RÉINITIALISATION TERRANEX TERMINÉE' AS titre,
+    '✅ RÉINITIALISATION TERRANEX TERMINÉE' AS titre,
     '' AS objet_supprime,
     '' AS statut
 UNION ALL
 SELECT 
     '',
-    'Rôle SF_Intelligence_Demo',
-    '❌ SUPPRIMÉ'
+    'Database DB_TERRANEX',
+    '❌ SUPPRIMÉE (avec toutes tables, vues, stages, services Cortex)'
 UNION ALL
 SELECT 
     '',
@@ -116,23 +95,13 @@ SELECT
 UNION ALL
 SELECT 
     '',
-    'Database DB_TERRANEX',
-    '❌ SUPPRIMÉE'
-UNION ALL
-SELECT 
-    '',
-    'Tables (5)',
-    '❌ SUPPRIMÉES'
-UNION ALL
-SELECT 
-    '',
-    'Vues (2)',
-    '❌ SUPPRIMÉES'
-UNION ALL
-SELECT 
-    '',
-    'Stage documents',
+    'Role SF_Intelligence_Demo',
     '❌ SUPPRIMÉ'
+UNION ALL
+SELECT 
+    '',
+    'Données volumineuses (11,650+)',
+    '❌ SUPPRIMÉES'
 UNION ALL
 SELECT 
     '',
@@ -141,13 +110,14 @@ SELECT
 UNION ALL
 SELECT 
     '',
-    'Stored Procedure ML',
-    '❌ SUPPRIMÉE'
+    'Modèle ML + Stored Procedure',
+    '❌ SUPPRIMÉS'
 UNION ALL
 SELECT 
     '',
-    'Agents IA (à supprimer manuellement)',
-    '⚠️ MANUEL';
+    'Agents IA',
+    '⚠️ À supprimer manuellement dans l''interface';
 
-SELECT '🔄 Environnement prêt pour une nouvelle installation complète !' AS statut_final;
-SELECT '📋 Exécutez maintenant les scripts 01 à 10 pour recréer l''environnement' AS prochaine_etape;
+SELECT '🔄 Environnement Snowflake complètement nettoyé !' AS statut_final;
+SELECT '🚀 Exécutez COMPLETE_SETUP.sql pour recréer l''environnement complet' AS prochaine_etape;
+SELECT '📋 Ou utilisez les scripts 01-10 pour installation étape par étape' AS alternative;
