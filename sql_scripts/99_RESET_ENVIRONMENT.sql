@@ -58,13 +58,18 @@ SELECT '🏭 Suppression du warehouse TERRANEX_WH...' AS etape;
 DROP WAREHOUSE IF EXISTS TERRANEX_WH;
 
 -- ======================================================================
--- SUPPRESSION DU RÔLE
+-- SUPPRESSION DU RÔLE ET REMISE EN PLACE DEFAULTS
 -- ======================================================================
 SELECT '👤 Suppression du rôle SF_Intelligence_Demo...' AS etape;
 
 -- Révocation du rôle de l'utilisateur actuel
 SET current_user_name = CURRENT_USER();
 REVOKE ROLE SF_Intelligence_Demo FROM USER IDENTIFIER($current_user_name);
+
+-- IMPORTANT: Remettre ACCOUNTADMIN par défaut avant suppression du rôle
+SELECT '🔄 Remise en place ACCOUNTADMIN par défaut...' AS etape;
+ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_ROLE = ACCOUNTADMIN;
+ALTER USER IDENTIFIER($current_user_name) SET DEFAULT_WAREHOUSE = NULL;
 
 -- Suppression du rôle
 DROP ROLE IF EXISTS SF_Intelligence_Demo;
@@ -118,6 +123,27 @@ SELECT
     '',
     'Agents IA',
     '⚠️ À supprimer manuellement dans l''interface';
+
+-- Vérification configuration utilisateur finale
+SELECT 
+    '👤 CONFIGURATION UTILISATEUR FINALE' AS section,
+    '' AS parametre,
+    '' AS valeur
+UNION ALL
+SELECT 
+    '',
+    'Utilisateur actuel',
+    CURRENT_USER()
+UNION ALL
+SELECT 
+    '',
+    'Rôle par défaut',
+    'ACCOUNTADMIN (restauré)'
+UNION ALL
+SELECT 
+    '',
+    'Warehouse par défaut',
+    'NULL (réinitialisé)';
 
 SELECT '🔄 Environnement Snowflake complètement nettoyé !' AS statut_final;
 SELECT '🚀 Exécutez COMPLETE_SETUP.sql pour recréer l''environnement complet' AS prochaine_etape;
