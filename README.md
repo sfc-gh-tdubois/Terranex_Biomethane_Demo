@@ -56,8 +56,23 @@ DB_TERRANEX
 - Rôle `SF_Intelligence_Demo` avec permissions appropriées
 - Warehouse `TERRANEX_WH`
 
-### Déploiement sécurisé en 13 étapes
+### 🚀 Installation rapide (5 minutes)
 
+**Pour les pressés - Installation autonome complète :**
+```bash
+# 1. Cloner le repository
+git clone https://github.com/sfc-gh-tdubois/Terranex_Biomethane_Demo.git
+cd Terranex_Biomethane_Demo
+
+# 2. Installation complète en un seul script
+snow sql -f sql_scripts/COMPLETE_SETUP.sql
+
+# 3. Créer les agents manuellement dans l'interface Snowflake Intelligence
+```
+
+### 📚 Déploiement pas-à-pas (pour apprentissage)
+
+**Pour comprendre chaque étape :**
 ```bash
 # 1. Cloner le repository
 git clone https://github.com/sfc-gh-tdubois/Terranex_Biomethane_Demo.git
@@ -98,6 +113,7 @@ snow sql -f sql_scripts/99_RESET_ENVIRONMENT.sql
 | Script | Description | Objets créés | Sécurité |
 |--------|-------------|--------------|----------|
 | `00_VERIFY_ENVIRONMENT.sql` | Vérification prérequis et environnement | - | ✅ Lecture seule |
+| **`COMPLETE_SETUP.sql`** | **🚀 INSTALLATION AUTONOME COMPLÈTE** | **TOUT en 5-10 min** | **🔒 IF NOT EXISTS** |
 | `01_setup_database_and_tables.sql` | Base DB_TERRANEX + 5 tables | Database, Schema, Tables | 🔒 CREATE uniquement |
 | `02_insert_bulk_data.sql` | Insertion données volumineuses | 11,650 enregistrements | ✅ INSERT uniquement |
 | `03_create_semantic_layer.sql` | Vue analytique multi-tables | Vue avec jointures | 🔒 CREATE uniquement |
